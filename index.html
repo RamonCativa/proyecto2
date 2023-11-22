@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Problemas de PC</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        th, td {
+            border: 1px solid #3a0606;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #3b3713;
+        }
+
+        button {
+            display: block;
+            margin: 10px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Registro de Problemas de PC</h1>
+
+    <button onclick="agregarProblema()">Agregar Problema</button>
+
+    <table id="incidentTable">
+        <tr>
+            <th>Número de Incidente</th>
+            <th>Problema</th>
+            <th>Estado de Resolución</th>
+        </tr>
+    </table>
+
+    <script>
+        var problemas = [];
+
+        function llenarTabla() {
+            var tabla = document.getElementById("incidentTable");
+            tabla.innerHTML = '<tr><th>Número de Incidente</th><th>Problema</th><th>Estado de Resolución</th></tr>';
+
+            problemas.forEach(function (incidente) {
+                var fila = tabla.insertRow();
+                var celdaNumero = fila.insertCell(0);
+                var celdaProblema = fila.insertCell(1);
+                var celdaResuelto = fila.insertCell(2);
+
+                celdaNumero.innerHTML = incidente.numero;
+                celdaProblema.innerHTML = incidente.problema;
+                celdaResuelto.innerHTML = incidente.resuelto ? "Resuelto" : "Pendiente";
+            });
+        }
+
+        function agregarProblema() {
+            var numero = prompt("Ingrese el número de incidente:");
+            var problema = prompt("Ingrese la descripción del problema:");
+            var resuelto = confirm("¿Se ha resuelto el problema?");
+
+            problemas.push({ numero: numero, problema: problema, resuelto: resuelto });
+            llenarTabla();
+        }
+
+        llenarTabla();
+    </script>
+
+</body>
+</html>
